@@ -42,13 +42,12 @@ class KeyController extends Controller
           'key' => 'required',
       ]);
       if ($validator->fails()) {
-          return response()->json(['error'=>$validator->errors()], 401);
+          return redirect()->route('keys.index')->withErrors(['The field key is required.']);
       }
 
       $input['apikey'] = $request['key'];
       if(Key::where('apikey', $input['apikey'])->exists())
-        return response()->json(['error'=>'This api key already exists'], 401);
-
+        return redirect()->route('keys.index')->withErrors(['This api key already exists.']);
 
       Key::create($input);
       return redirect()->route('keys.index');

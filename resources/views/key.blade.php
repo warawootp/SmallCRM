@@ -36,6 +36,13 @@
         </div>
     </form>
 
+    @if ($errors->count() > 0)
+    <div class="alert alert-danger" role="alert">
+        @foreach( $errors->all() as $message )
+          <li>{{ $message }}</li>
+        @endforeach
+    </div>
+    @endif
     <table class="table table-striped table-bordered">
         <thead class="thead-light">
             <tr>
