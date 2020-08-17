@@ -22,6 +22,7 @@
             </li>
         </ul>
     </nav>
+
     <form class="p-3" action="{{ route('customers.store') }}" method="post">
         @csrf
         <div class="input-group">
@@ -37,6 +38,13 @@
         </div>
     </form>
 
+    @if ($errors->count() > 0)
+    <div class="alert alert-danger" role="alert">
+        @foreach( $errors->all() as $message )
+          <li>{{ $message }}</li>
+        @endforeach
+    </div>
+    @endif
     <table class="table table-striped table-bordered">
         <thead class="thead-light">
             <tr>

@@ -43,13 +43,13 @@ class CustomerController extends Controller
           'lname' => 'required',
       ]);
       if ($validator->fails()) {
-          return response()->json(['error'=>$validator->errors()], 401);
+          return redirect()->route('customers.index')->withErrors(['The field Firstname and Lastname are required.']);
       }
       $input['firstname'] = $request['fname'];
       $input['lastname'] = $request['lname'];
 
       if(Customer::where('firstname', $input['firstname'])->where('lastname', $input['lastname'])->exists())
-        return response()->json(['error'=>'The user already exists'], 401);
+        return redirect()->route('customers.index')->withErrors(['error'=>'The customer already exists']);
 
       Customer::create($input);
       return redirect()->route('customers.index');
@@ -92,7 +92,7 @@ class CustomerController extends Controller
           'lname' => 'required',
       ]);
       if ($validator->fails()) {
-          return response()->json(['error'=>$validator->errors()], 401);
+        return redirect()->route('customers.index')->withErrors(['The field Firstname and Lastname are required.']);
       }
       $customer = Customer::find($id);
       $customer->firstname = $request['fname'];

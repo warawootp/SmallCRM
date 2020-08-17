@@ -21,7 +21,7 @@ class Key extends Model
    * @var array
    */
   protected $hidden = [
-
+    'created_at', 'updated_at'
   ];
 
   /**
@@ -30,6 +30,6 @@ class Key extends Model
    * @var array
    */
   protected $casts = [
-    
+
   ];
 }
