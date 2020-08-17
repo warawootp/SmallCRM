@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Web;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Key;
+use Validator;
 
 class KeyController extends Controller
 {
@@ -14,7 +16,8 @@ class KeyController extends Controller
      */
     public function index()
     {
-        return view('key');
+      $keys = Key::all();
+      return view('key', compact('keys'));
     }
 
     /**
@@ -35,7 +38,20 @@ class KeyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $validator = Validator::make($request->all(), [
+          'key' => 'required',
+      ]);
+      if ($validator->fails()) {
+          return response()->json(['error'=>$validator->errors()], 401);
+      }
+
+      $input['apikey'] = $request['key'];
+      if(Key::where('apikey', $input['apikey'])->exists())
+        return response()->json(['error'=>'This api key already exists'], 401);
+
+
+      Key::create($input);
+      return redirect()->route('keys.index');
     }
 
     /**
@@ -80,6 +96,8 @@ class KeyController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $key = Key::find($id);
+      $key->delete();
+      return redirect()->route('keys.index');
     }
 }

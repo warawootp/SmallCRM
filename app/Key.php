@@ -30,6 +30,6 @@ class Key extends Model
    * @var array
    */
   protected $casts = [
-
+    
   ];
 }

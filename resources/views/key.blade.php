@@ -22,7 +22,8 @@
             </li>
         </ul>
     </nav>
-    <form class="p-3">
+    <form class="p-3" action="{{ route('keys.store') }}" method="post">
+        @csrf
         <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Api Key</span>
@@ -43,19 +44,19 @@
             </tr>
         </thead>
         <!-- TODO: List key from database -->
+        @foreach($keys as $key)
         <tr>
-            <td>098f6bcd4621d373cade4e832627b4f6</td>
+            <td>{{$key->apikey}}</td>
             <td>
                 <!-- TODO: Delete key from database -->
-                <button type="submit" class="btn btn-sm btn-secondary">Delete</button>
+                <form action="/keys/{{$key->id}}" method="post" onsubmit="return confirm('Do you want to delete this api key!');">
+                  @csrf
+                  {{ method_field('DELETE') }}
+                  <button type="submit" class="btn btn-sm btn-secondary">Delete</button>
+                </form>
             </td>
         </tr>
-        <tr>
-            <td>6bff30b6104cff1ca869f86eb614006b</td>
-            <td>
-                <button type="submit" class="btn btn-sm btn-secondary">Delete</button>
-            </td>
-        </tr>
+        @endforeach
     </table>
 </div>
 
