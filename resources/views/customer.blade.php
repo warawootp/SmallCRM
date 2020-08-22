@@ -61,7 +61,7 @@
             <td>
                 <!-- TODO: After click edit, populate first name, last name on to form above for editing -->
                 <div class="input-group">
-                  <form class="inline" action="/customers/{{$customer->id}}" method="post">
+                  <form class="inline" action="customers/{{$customer->id}}" method="post">
                     @csrf
                     {{ method_field('PUT') }}
                     <div class="modal fade" id="modalEditForm{{$customer->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -96,7 +96,7 @@
 
                   <span>&nbsp;</span>
                   <!-- TODO: Delete customer from database -->
-                  <form action="/customers/{{$customer->id}}" method="post" onsubmit="return confirm('Do you want to delete this customer!');">
+                  <form action="customers/{{$customer->id}}" method="post" onsubmit="return confirm('Do you want to delete this customer!');">
                     @csrf
                     {{ method_field('DELETE') }}
                     <button type="submit" class="btn btn-sm btn-secondary">Delete</button>

@@ -56,7 +56,7 @@
             <td>{{$key->apikey}}</td>
             <td>
                 <!-- TODO: Delete key from database -->
-                <form action="/keys/{{$key->id}}" method="post" onsubmit="return confirm('Do you want to delete this api key!');">
+                <form action="keys/{{$key->id}}" method="post" onsubmit="return confirm('Do you want to delete this api key!');">
                   @csrf
                   {{ method_field('DELETE') }}
                   <button type="submit" class="btn btn-sm btn-secondary">Delete</button>
